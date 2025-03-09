@@ -2,13 +2,13 @@ package com.apicatalog.rdf.api;
 
 public class RdfConsumerException extends Exception {
 
-    private static final long serialVersionUID = -5794012244060873543L;
-
+    private static final long serialVersionUID = -7712839468375996952L;
+    
     String subject;
     String predicate;
     String object;
     String datatype;
-    String lanTag;
+    String language;
     String direction;
     String graph;
 
@@ -25,28 +25,24 @@ public class RdfConsumerException extends Exception {
     }
 
     public RdfConsumerException(String subject, String predicate, String object, String graph, Exception e) {
-        super(e);
-        this.subject = subject;
-        this.predicate = predicate;
-        this.object = object;
-        this.graph = graph;
+        this(subject, predicate, object, null, null, null, graph, e);
     }
 
-    public RdfConsumerException(String subject, String predicate, String object, String datatype, String graph, Exception e) {
+    public RdfConsumerException(String subject, String predicate, String literal, String datatype, String graph, Exception e) {
+        this(subject, predicate, literal, datatype, null, null, graph, e);
+    }
+
+    public RdfConsumerException(String subject, String predicate, String literal, String language, String direction, String graph, Exception e) {
+        this(subject, predicate, literal, null, language, direction, graph, e);
+    }
+
+    public RdfConsumerException(String subject, String predicate, String object, String datatype, String language, String direction, String graph, Exception e) {
         super(e);
         this.subject = subject;
         this.predicate = predicate;
         this.object = object;
         this.datatype = datatype;
-        this.graph = graph;
-    }
-
-    public RdfConsumerException(String subject, String predicate, String object, String langTag, String direction, String graph, Exception e) {
-        super(e);
-        this.subject = subject;
-        this.predicate = predicate;
-        this.object = object;
-        this.lanTag = langTag;
+        this.language = language;
         this.direction = direction;
         this.graph = graph;
     }
@@ -66,16 +62,16 @@ public class RdfConsumerException extends Exception {
     public String getSubject() {
         return subject;
     }
+    
+    public String getDatatype() {
+        return datatype;
+    }
 
     public String getDirection() {
         return direction;
     }
 
-    public String getLanTag() {
-        return lanTag;
-    }
-
-    public String getDatatype() {
-        return datatype;
+    public String getLanguage() {
+        return language;
     }
 }
