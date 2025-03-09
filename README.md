@@ -9,6 +9,23 @@ A collection of straightforward micro-interfaces for processing RDF statements a
 
 Formerly part of [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
 
+## Example
+
+This example demonstrates how to utilize the `RdfQuadConsumer` interface with Titanium JSON-LD, RDF Canonicalization, and the N-Quads writer to transform JSON-LD into canonicalized RDF and represent it in the N-QUADS format.
+
+```javascript
+// Step 1: Create an RDF Canonicalizer
+var canon = RdfCanon.create(...);
+
+// Step 2: Convert JSON-LD to RDF and pass statements to the canonicalizer
+JsonLd.toRdf(...).provide(canon);
+
+// Step 3: Canonicalize the received RDF statements and output the canonical version in N-QUADS format
+var writer = new NQuadsWriter(...);
+canon.provide(writer);
+
+```
+
 ## Installation
 
 ### Maven
@@ -42,5 +59,9 @@ Fork and clone the project repository.
 ```
 
 
-## Resources
+## Libraries
+
+* [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
+* [Titanium RDF N-QUADS](https://github.com/filip26/titanium-rdf-n-quads)
+* [Titanium RDF Dataset Canonicalization](https://github.com/filip26/titanium-rdf-canon)
 

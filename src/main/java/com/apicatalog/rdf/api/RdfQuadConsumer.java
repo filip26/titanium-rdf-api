@@ -14,8 +14,8 @@ package com.apicatalog.rdf.api;
 public interface RdfQuadConsumer {
 
     /**
-     * Consumes an RDF quad where the {@code object} may be an IRI, blank
-     * node, typed literal, or language-tagged literal.
+     * Consumes an RDF quad where the {@code object} may be an IRI, blank node,
+     * typed literal, or language-tagged literal.
      * <p>
      * This method provides fine-grained control over RDF quad data, allowing
      * precise handling of datatypes, language tags, and text direction.
@@ -35,9 +35,10 @@ public interface RdfQuadConsumer {
      *                  </ul>
      *                  Must not be {@code null}.
      *                  <p>
-     *                  Use {@link #isObjectValid(String, String, String)},
-     *                  {@link #isLiteral(String, String, String)}, and
-     *                  {@link #isLangString(String, String, String)} to validate
+     *                  Use {@link #isValidObject(String, String, String)},
+     *                  {@link #isLiteral(String, String, String)},
+     *                  {@link #isLangString(String, String, String)}, and
+     *                  {@link #isDirLangString(String, String, String)} to validate
      *                  and classify the input.
      * @param datatype  the datatype IRI of the literal. Must be {@code null} if
      *                  {@code object} is not a literal. Must not be {@code null}
@@ -67,33 +68,49 @@ public interface RdfQuadConsumer {
 
     /**
      * Determines if the provided combination of {@code datatype}, {@code language},
-     * and {@code direction} qualifies the object as a literal.
+     * and {@code direction} qualifies the object as RDF literal.
      *
      * @param datatype  the datatype IRI
      * @param language  the language tag
      * @param direction the text direction
-     * @return {@code true} if {@code datatype} is not {@code null}, indicating a
-     *         literal.
+     * @return {@code true} indicating a literal, otherwise {@code false}.
      */
     static boolean isLiteral(String datatype, String language, String direction) {
         return datatype != null;
     }
 
     /**
-     * Determines if the provided object is a language-tagged string literal.
+     * Determines if the provided combination of {@code datatype}, {@code language},
+     * and {@code direction} qualifies the object as an RDF language-tagged string
+     * literal with no specified direction.
+     * 
+     * @param datatype  the datatype IRI
+     * @param language  the language tag
+     * @param direction the text direction
+     * @return {@code true} if the provided object is RDF language-tagged literal,
+     *         otherwise {@code false}.
+     */
+    static boolean isLangString(String datatype, String language, String direction) {
+        return datatype != null && language != null && direction == null;
+    }
+
+    /**
+     * Determines if the provided combination of {@code datatype}, {@code language},
+     * and {@code direction} qualifies the object as an RDF directional
+     * language-tagged string literal with a specified direction.
      *
      * @param datatype  the datatype IRI
      * @param language  the language tag
      * @param direction the text direction
-     * @return {@code true} if {@code datatype} is not {@code null} and either
-     *         {@code language} or {@code direction} is provided.
+     * @return {@code true} if the provided object is RDF directional
+     *         language-tagged literal, otherwise {@code false}.
      */
-    static boolean isLangString(String datatype, String language, String direction) {
-        return datatype != null && (language != null || direction != null);
+    static boolean isDirLangString(String datatype, String language, String direction) {
+        return datatype != null && language != null && direction != null;
     }
 
     /**
-     * Validates whether the object is a valid RDF term based on the presence of
+     * Validates whether the object is a valid RDF object based on the presence of
      * {@code datatype}, {@code language}, and {@code direction}.
      *
      * @param datatype  the datatype IRI
@@ -101,8 +118,10 @@ public interface RdfQuadConsumer {
      * @param direction the text direction
      * @return {@code true} if the object is valid according to RDF term rules.
      */
-    static boolean isObjectValid(String datatype, String language, String direction) {
-        return datatype != null || (language == null && direction == null);
+    static boolean isValidObject(String datatype, String language, String direction) {
+        return datatype != null
+                ? (language != null || direction == null)
+                : (language == null && direction == null);
     }
 
     /**
@@ -116,5 +135,4 @@ public interface RdfQuadConsumer {
     static boolean isBlank(String resource) {
         return resource != null && resource.startsWith("_:");
     }
-
 }
