@@ -7,8 +7,6 @@ A collection of straightforward micro-interfaces for processing RDF statements a
 [![javadoc](https://javadoc.io/badge2/com.apicatalog/titanium-rdf-api/javadoc.svg)](https://javadoc.io/doc/com.apicatalog/titanium-rdf-api)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Formerly part of [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
-
 ## Example
 
 This example demonstrates how to utilize the `RdfQuadConsumer` interface with Titanium JSON-LD, RDF Canonicalization, and the N-Quads writer to transform JSON-LD into canonicalized RDF and represent it in the N-QUADS format.
