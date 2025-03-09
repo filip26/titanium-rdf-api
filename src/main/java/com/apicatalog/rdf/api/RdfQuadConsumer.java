@@ -10,6 +10,7 @@ package com.apicatalog.rdf.api;
  * Use the provided static helper methods to analyze and validate consumer
  * parameters.
  */
+@FunctionalInterface
 public interface RdfQuadConsumer {
 
     /**
