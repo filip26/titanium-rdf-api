@@ -22,6 +22,14 @@ var writer = new NQuadsWriter(...);
 canon.provide(writer);
 
 ```
+## Supported By
+
+* [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
+* [Titanium RDF N-QUADS](https://github.com/filip26/titanium-rdf-n-quads)
+* [Titanium RDF Dataset Canonicalization](https://github.com/filip26/titanium-rdf-canon)
+
+Add an implementation that supports this API - open a PR!
+
 
 ## Installation
 
@@ -54,11 +62,4 @@ Fork and clone the project repository.
 > cd titanium-rdf-api
 > mvn package
 ```
-
-
-## Libraries
-
-* [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
-* [Titanium RDF N-QUADS](https://github.com/filip26/titanium-rdf-n-quads)
-* [Titanium RDF Dataset Canonicalization](https://github.com/filip26/titanium-rdf-canon)
 
