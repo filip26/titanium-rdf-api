@@ -27,6 +27,8 @@ canon.provide(writer);
 * [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
 * [Titanium RDF N-QUADS](https://github.com/filip26/titanium-rdf-n-quads)
 * [Titanium RDF Dataset Canonicalization](https://github.com/filip26/titanium-rdf-canon)
+* [Apache Jena](https://jena.apache.org/)
+* [Jelly-JVM](https://w3id.org/jelly/jelly-jvm) – high-performance binary RDF serialization format
 
 Add an implementation that supports this API - open a PR!
 
