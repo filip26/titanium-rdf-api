@@ -24,6 +24,8 @@ canon.provide(writer);
 ```
 ## Supported By
 
+* [Apache Jena](https://jena.apache.org/)
+* [Jelly-JVM](https://w3id.org/jelly/jelly-jvm) – high-performance binary RDF serialization format
 * [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
 * [Titanium RDF N-QUADS](https://github.com/filip26/titanium-rdf-n-quads)
 * [Titanium RDF Dataset Canonicalization](https://github.com/filip26/titanium-rdf-canon)
