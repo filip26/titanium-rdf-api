@@ -29,6 +29,7 @@ canon.provide(writer);
 * [Titanium JSON-LD](https://github.com/filip26/titanium-json-ld)
 * [Titanium RDF N-QUADS](https://github.com/filip26/titanium-rdf-n-quads)
 * [Titanium RDF Dataset Canonicalization](https://github.com/filip26/titanium-rdf-canon)
+* [Titanium RDF Primitives](https://github.com/filip26/titanium-rdf-primitives)
 
 Add an implementation that supports this API - open a PR!
 
