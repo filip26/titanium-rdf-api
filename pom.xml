@@ -24,7 +24,7 @@
                 
         <!--  test resources -->
         <jakarta.json.version>2.0.1</jakarta.json.version>        
-        <junit.version>5.14.1</junit.version>
+        <junit.version>5.14.2</junit.version>
     </properties>
 
     <name>Titanium RDF API</name>
