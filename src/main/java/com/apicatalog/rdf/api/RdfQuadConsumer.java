@@ -11,6 +11,7 @@ package com.apicatalog.rdf.api;
  * parameters.
  */
 @FunctionalInterface
+@Deprecated
 public interface RdfQuadConsumer {
 
     /**
