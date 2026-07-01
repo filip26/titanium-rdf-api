@@ -28,8 +28,7 @@ public interface Rdf11QuadConsumer {
      *                  Must not be {@code null}.
      *                  <p>
      *                  Use {@link #isLiteral(String, String, String)},
-     *                  {@link #isLangString(String, String, String)}, and
-     *                  {@link #isDirLangString(String, String, String)} to validate
+     *                  {@link #isLangString(String, String, String)} to validate
      *                  and classify the input.
      * @param datatype  the datatype IRI of the literal. Must be {@code null} if
      *                  {@code object} is not a literal. Must not be {@code null}

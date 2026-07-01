@@ -1,10 +1,10 @@
 package com.apicatalog.rdf.api;
 
 /**
- * Defines an event-based emitter for RDF 1.2 data, supporting Triple Terms and
+ * Defines an event-based emitter for RDF 1.2 quads, supporting Triple Terms and
  * directional language-tagged strings.
  */
-public interface Rdf12Emitter {
+public interface Rdf12QuadEmitter {
 
     String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
     String DATATYPE_DIR_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString";
@@ -154,6 +154,8 @@ public interface Rdf12Emitter {
      *
      * @param iri the subject IRI or blank node identifier
      * @throws IllegalArgumentException if the resource identifier is invalid
+     * @throws IllegalStateException    if the method is called in an incorrect
+     *                                  state
      */
     void subject(String iri);
 
@@ -162,6 +164,8 @@ public interface Rdf12Emitter {
      *
      * @param iri the predicate IRI
      * @throws IllegalArgumentException if the predicate is invalid
+     * @throws IllegalStateException    if the method is called in an incorrect
+     *                                  state
      */
     void predicate(String iri);
 
@@ -170,6 +174,8 @@ public interface Rdf12Emitter {
      *
      * @param iri the object IRI or blank node identifier
      * @throws IllegalArgumentException if the resource identifier is invalid
+     * @throws IllegalStateException    if the method is called in an incorrect
+     *                                  state
      */
     void object(String iri);
 
@@ -179,6 +185,8 @@ public interface Rdf12Emitter {
      * @param lexical  the lexical form of the literal
      * @param datatype the datatype IRI
      * @throws IllegalArgumentException if the values are invalid
+     * @throws IllegalStateException    if the method is called in an incorrect
+     *                                  state
      */
     default void literal(
             String lexical,
@@ -193,6 +201,8 @@ public interface Rdf12Emitter {
      * @param datatype the datatype IRI (e.g., {@link DATATYPE_LANG_STRING})
      * @param language the language tag
      * @throws IllegalArgumentException if the values are invalid
+     * @throws IllegalStateException    if the method is called in an incorrect
+     *                                  state
      */
     default void literal(
             String lexical,
@@ -209,6 +219,8 @@ public interface Rdf12Emitter {
      * @param language  the language tag, or null
      * @param direction the text direction, or null
      * @throws IllegalArgumentException if the values are invalid
+     * @throws IllegalStateException    if the method is called in an incorrect
+     *                                  state
      */
     void literal(
             String lexical,
