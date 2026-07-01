@@ -5,6 +5,44 @@ public interface Rdf11QuadConsumer {
 
     String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
 
+    /**
+     * Consumes an RDF quad where the {@code object} may be an IRI, blank node,
+     * typed literal, or language-tagged literal.
+     * <p>
+     * This method provides fine-grained control over RDF quad data, allowing
+     * precise handling of datatypes, language tags, and text direction.
+     *
+     * @param subject   the subject of the quad; must be an IRI or blank node
+     *                  identifier prefixed with "<code>_:</code>". Must not be
+     *                  {@code null}.
+     * @param predicate the predicate of the quad; must be an IRI. Must not be
+     *                  {@code null}.
+     * @param object    the object of the quad; must be either:
+     *                  <ul>
+     *                  <li>an IRI</li>
+     *                  <li>a blank node identifier prefixed with
+     *                  "<code>_:</code>"</li>
+     *                  <li>a literal value, when {@code datatype} is not
+     *                  {@code null}</li>
+     *                  </ul>
+     *                  Must not be {@code null}.
+     *                  <p>
+     *                  Use {@link #isLiteral(String, String, String)},
+     *                  {@link #isLangString(String, String, String)}, and
+     *                  {@link #isDirLangString(String, String, String)} to validate
+     *                  and classify the input.
+     * @param datatype  the datatype IRI of the literal. Must be {@code null} if
+     *                  {@code object} is not a literal. Must not be {@code null}
+     *                  when {@code language} or {@code direction} is provided.
+     * @param language  the language tag of the literal. May be {@code null}, but
+     *                  must not be {@code null} if {@code direction} is provided.
+     * @param graph     the graph name of the quad; must be an IRI or blank node
+     *                  identifier prefixed with "<code>_:</code>". May be
+     *                  {@code null} to indicate the default graph.
+     *
+     * @throws IllegalArgumentException if an error occurs while processing the quad
+     *                                  statement.
+     */
     void quad(
             String subject,
             String predicate,
