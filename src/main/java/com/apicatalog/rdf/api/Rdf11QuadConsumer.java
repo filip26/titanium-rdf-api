@@ -1,8 +1,18 @@
 package com.apicatalog.rdf.api;
 
+/**
+ * Represents a consumer of RDF 1.1 quads.
+ * <p>
+ * This functional interface provides a mechanism to process or consume RDF
+ * statements represented as quads, with support for datatypes and language
+ * tags.
+ */
 @FunctionalInterface
 public interface Rdf11QuadConsumer {
 
+    /**
+     * The datatype IRI for RDF language-tagged strings.
+     */
     String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
 
     /**
@@ -10,7 +20,7 @@ public interface Rdf11QuadConsumer {
      * typed literal, or language-tagged literal.
      * <p>
      * This method provides fine-grained control over RDF quad data, allowing
-     * precise handling of datatypes, language tags, and text direction.
+     * precise handling of datatypes and language tags.
      *
      * @param subject   the subject of the quad; must be an IRI or blank node
      *                  identifier prefixed with "<code>_:</code>". Must not be
@@ -27,14 +37,13 @@ public interface Rdf11QuadConsumer {
      *                  </ul>
      *                  Must not be {@code null}.
      *                  <p>
-     *                  Use {@link #isLiteral(String, String, String)},
-     *                  {@link #isLangString(String, String, String)} to validate
-     *                  and classify the input.
+     *                  Use {@link #isLiteral(String, String)} and
+     *                  {@link #isLangString(String, String)} to validate and
+     *                  classify the input.
      * @param datatype  the datatype IRI of the literal. Must be {@code null} if
      *                  {@code object} is not a literal. Must not be {@code null}
-     *                  when {@code language} or {@code direction} is provided.
-     * @param language  the language tag of the literal. May be {@code null}, but
-     *                  must not be {@code null} if {@code direction} is provided.
+     *                  when {@code language} is provided.
+     * @param language  the language tag of the literal. May be {@code null}.
      * @param graph     the graph name of the quad; must be an IRI or blank node
      *                  identifier prefixed with "<code>_:</code>". May be
      *                  {@code null} to indicate the default graph.
@@ -51,26 +60,24 @@ public interface Rdf11QuadConsumer {
             String graph);
 
     /**
-     * Determines if the provided combination of {@code datatype}, {@code language},
-     * and {@code direction} qualifies the object as RDF literal.
+     * Determines if the provided combination of {@code datatype}, and
+     * {@code language} qualifies the object as RDF literal.
      *
-     * @param datatype  the datatype IRI
-     * @param language  the language tag
-     * @param direction the text direction
+     * @param datatype the datatype IRI
+     * @param language the language tag
      * @return {@code true} indicating a literal, otherwise {@code false}.
      */
-    static boolean isLiteral(String datatype, String language, String direction) {
+    static boolean isLiteral(String datatype, String language) {
         return datatype != null;
     }
 
     /**
-     * Determines if the provided combination of {@code datatype}, {@code language},
-     * and {@code direction} qualifies the object as an RDF language-tagged string
+     * Determines if the provided combination of {@code datatype}, and
+     * {@code language} qualifies the object as an RDF language-tagged string
      * literal with no specified direction.
      * 
-     * @param datatype  the datatype IRI
-     * @param language  the language tag
-     * @param direction the text direction
+     * @param datatype the datatype IRI
+     * @param language the language tag
      * @return {@code true} if the provided object is RDF language-tagged literal,
      *         otherwise {@code false}.
      */

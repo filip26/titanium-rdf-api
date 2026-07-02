@@ -3,10 +3,50 @@ package com.apicatalog.rdf.api;
 /**
  * Defines an event-based emitter for RDF 1.2 quads, supporting Triple Terms and
  * directional language-tagged strings.
+ * 
+ * <p>
+ * Usage Examples:
+ * </p>
+ * 
+ * <pre>{@code
+ * Rdf12QuadEmitter emitter = ...;
+ *
+ * // 1. Emitting a standard flat quad using convenience methods
+ * emitter.quad(
+ *     "http://example.org/subject", 
+ *     "http://example.org/predicate", 
+ *     "http://example.org/object", 
+ *     "http://example.org/graph"
+ * );
+ *
+ * // 2. Streaming a quad with a directional language-tagged literal (Czech)
+ * emitter.beginQuad("http://example.org/graph");
+ * emitter.subject("http://example.org/subject");
+ * emitter.predicate("http://example.org/predicate");
+ * emitter.literal("Ahoj", Rdf12QuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
+ * emitter.endQuad();
+ *
+ * // 3. Emitting an RDF 1.2 Triple Term in the subject position (e.g., << :s :p :o >> :p2 :o2)
+ * emitter.beginQuad(null); // Default graph
+ * 
+ * emitter.beginSubject();
+ * emitter.subject("http://example.org/s");
+ * emitter.predicate("http://example.org/p");
+ * emitter.object("http://example.org/o");
+ * emitter.endSubject();
+ * 
+ * emitter.predicate("http://example.org/p2");
+ * emitter.object("http://example.org/o2");
+ * emitter.endQuad();
+ * }</pre>
  */
 public interface Rdf12QuadEmitter {
 
+    /**
+     * The datatype IRI for RDF language-tagged strings.
+     */
     String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+    
     String DATATYPE_DIR_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString";
 
     /**
@@ -33,8 +73,8 @@ public interface Rdf12QuadEmitter {
      *
      * @param subject   the subject IRI or blank node identifier
      * @param predicate the predicate IRI
-     * @param literal
-     * @param datatype
+     * @param literal   the lexical form of the literal
+     * @param datatype  the datatype IRI
      * @param graph     the graph name, or null for default graph
      * @throws IllegalArgumentException if any argument is invalid
      * @throws IllegalStateException    if the method is called in an incorrect
@@ -53,9 +93,9 @@ public interface Rdf12QuadEmitter {
      *
      * @param subject   the subject IRI or blank node identifier
      * @param predicate the predicate IRI
-     * @param literal
-     * @param datatype
-     * @param language
+     * @param literal   the lexical form of the literal
+     * @param datatype  the datatype IRI
+     * @param language  the language tag
      * @param graph     the graph name, or null for default graph
      * @throws IllegalArgumentException if any argument is invalid
      * @throws IllegalStateException    if the method is called in an incorrect
@@ -75,10 +115,10 @@ public interface Rdf12QuadEmitter {
      *
      * @param subject   the subject IRI or blank node identifier
      * @param predicate the predicate IRI
-     * @param literal
-     * @param datatype
-     * @param language
-     * @param direction
+     * @param literal   the lexical form of the literal
+     * @param datatype  the datatype IRI
+     * @param language  the language tag, or null
+     * @param direction the text direction, or null
      * @param graph     the graph name, or null for default graph
      * @throws IllegalArgumentException if any argument is invalid
      * @throws IllegalStateException    if the method is called in an incorrect

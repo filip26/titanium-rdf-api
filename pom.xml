@@ -21,16 +21,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <argLine>-Dfile.encoding=UTF-8</argLine>
-                
+
         <!--  test resources -->
-        <jakarta.json.version>2.0.1</jakarta.json.version>        
+        <jakarta.json.version>2.0.1</jakarta.json.version>
         <junit.version>5.14.4</junit.version>
     </properties>
 
     <name>Titanium RDF API</name>
 
     <description>
-        A collection of straightforward interfaces for processing RDF statements and facilitating seamless interoperability and data exchange across various libraries.    
+        A collection of universal RDF 1.1 and RDF 1.2 micro-interfaces enabling
+        fast, high-performance processing, seamless interoperability, and data
+        exchange across various libraries.
     </description>
 
     <licenses>
@@ -77,7 +79,7 @@
             <artifactId>jakarta.json</artifactId>
             <version>${jakarta.json.version}</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
     </dependencies>
 
     <build>
@@ -159,14 +161,14 @@
                         <version>3.2.8</version>
                         <executions>
                             <execution>
-                              <id>sign-artifacts</id>
-                              <phase>verify</phase>
-                              <goals>
-                                  <goal>sign</goal>
-                              </goals>
-                              <configuration>
-                                <signer>bc</signer>
-                              </configuration>                                
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <signer>bc</signer>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

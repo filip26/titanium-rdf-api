@@ -1,5 +1,10 @@
 package com.apicatalog.rdf.api;
 
+/**
+ * @deprecated since 2.0.0. Use {@link IllegalArgumentException} for invalid arguments
+ *             or {@link IllegalStateException} for incorrect operational states instead.
+ */
+@Deprecated
 public class RdfConsumerException extends Exception {
 
     private static final long serialVersionUID = -7712839468375996952L;

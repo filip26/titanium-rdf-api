@@ -9,6 +9,10 @@ package com.apicatalog.rdf.api;
  * <p>
  * Use the provided static helper methods to analyze and validate consumer
  * parameters.
+ * 
+ * @deprecated since 2.0.0. Use {@link Rdf11QuadConsumer} for RDF 1.1
+ *             applications or {@link Rdf12QuadEmitter} for RDF 1.2 processing
+ *             instead.
  */
 @FunctionalInterface
 @Deprecated
