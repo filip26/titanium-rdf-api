@@ -13,18 +13,5 @@
  * production of Triple Terms.</li>
  * </ul>
  * 
- * <p>
- * Usage Example (Emitting Triple Term with directional text in Czech):
- * </p>
- * 
- * <pre>{@code
- * RdfQuadEmitter emitter = ...;
- * 
- * emitter.beginQuad("http://example.org/graph");
- * emitter.subject("http://example.org/subject");
- * emitter.predicate("http://example.org/predicate");
- * emitter.literal("Ahoj", RdfQuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
- * emitter.endQuad();
- * }</pre>
  */
 package com.apicatalog.rdf.api;
