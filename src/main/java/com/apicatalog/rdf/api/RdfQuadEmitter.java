@@ -46,25 +46,11 @@ package com.apicatalog.rdf.api;
  */
 public interface RdfQuadEmitter extends RdfQuadConsumer {
 
-    /**
-     * Emits a complete quad statement using standard string values.
-     *
-     * @param subject   the subject IRI or blank node identifier
-     * @param predicate the predicate IRI
-     * @param literal   the lexical form of the literal
-     * @param datatype  the datatype IRI
-     * @param language  the language tag, or null
-     * @param direction the text direction, or null
-     * @param graph     the graph name, or null for default graph
-     * @throws IllegalArgumentException if any argument is invalid
-     * @throws IllegalStateException    if the method is called in an incorrect
-     *                                  state
-     */
     @Override
     default void quad(
             String subject,
             String predicate,
-            String literal,
+            String object,
             String datatype,
             String language,
             String direction,
@@ -72,7 +58,11 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
         beginQuad(graph);
         subject(subject);
         predicate(predicate);
-        literal(literal, datatype, language);
+        if (RdfQuadConsumer.isLiteral(datatype, language, direction)) {
+            literal(object, datatype, language);
+        } else {
+            object(object);
+        }
         endQuad();
     }
 
