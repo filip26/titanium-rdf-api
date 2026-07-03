@@ -10,18 +10,18 @@ A collection of straightforward micro-interfaces for processing RDF statements a
 
 This section demonstrates how to directly utilize the micro-interfaces for both RDF 1.1 processing and advanced RDF 1.2 data emission.
 
-### RDF 1.1: Consuming Quads
+### RDF Flat Quads
 
-This example shows how to implement and use the `Rdf11QuadConsumer` interface to process incoming RDF 1.1 statements, utilizing the static helper methods to validate data types.
+This example shows how to implement and use the `RdfQuadConsumer` interface to process incoming RDF statements, utilizing the static helper methods to validate data types.
 
 ```java
 // 1. Implement a custom consumer
 var logger = (subject, predicate, object, datatype, language, graph) -> {
     
     // Use static helpers to identify language-tagged strings
-    if (Rdf11QuadConsumer.isLangString(datatype, language)) {
+    if (RdfQuadConsumer.isLangString(datatype, language)) {
         System.out.println("Language string detected: " + object + "@" + language);
-    } else if (Rdf11QuadConsumer.isBlank(subject)) {
+    } else if (RdfQuadConsumer.isBlank(subject)) {
         System.out.println("Blank node subject detected: " + subject);
     }
     
@@ -30,22 +30,23 @@ var logger = (subject, predicate, object, datatype, language, graph) -> {
 
 // 2. Feed quads into the consumer
 logger.quad(
-    "[http://example.org/subject](http://example.org/subject)",
-    "[http://example.org/predicate](http://example.org/predicate)",
+    "http://example.org/subject",
+    "http://example.org/predicate",
     "Ahoj",
-    Rdf11QuadConsumer.DATATYPE_LANG_STRING,
+    RdfQuadConsumer.DATATYPE_DIR_LANG_STRING,
     "cs",
-    nul
+    "ltr",
+    null
 );
 ```
 
-### RDF 1.2: Event-Based Data Emission
+### RDF Triple Terms
 
-This example demonstrates how to use the `Rdf12QuadEmitter` interface to produce complex RDF 1.2 structures, including directional language-tagged strings and nested Triple Terms.
+This example demonstrates how to use the `RdfQuadEmitter` interface to produce nested Triple Terms.
 
 ```java
-// Initialize a writer or processor implementing Rdf12QuadEmitter
-Rdf12QuadEmitter emitter = ...;
+// Initialize a writer or processor implementing RdfQuadEmitter
+RdfQuadEmitter emitter = ...;
 
 // 1. Emitting a standard flat quad using convenience methods
 emitter.quad(
@@ -59,7 +60,7 @@ emitter.quad(
 emitter.beginQuad("http://example.org/graph");
 emitter.subject("http://example.org/subject");
 emitter.predicate("http://example.org/predicate");
-emitter.literal("Ahoj", Rdf12QuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
+emitter.literal("Ahoj", RdfQuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
 emitter.endQuad();
 
 // 3. Emitting an RDF 1.2 Triple Term in the subject position (<< :s :p :o >> :p2 :o2)
@@ -76,7 +77,7 @@ emitter.object("http://example.org/o2");
 emitter.endQuad();
 ```
 
-## Supported By
+## 🎉 Supported By
 
 * [Apache Jena](https://jena.apache.org/)
 * [Jelly-JVM](https://w3id.org/jelly/jelly-jvm) – high-performance binary RDF serialization format
@@ -88,28 +89,20 @@ emitter.endQuad();
 Add an implementation that supports this API - open a PR!
 
 
-## Installation
+## 📦 Installation
 
-### Maven
 
 ```xml
 <dependency>
     <groupId>com.apicatalog</groupId>
     <artifactId>titanium-rdf-api</artifactId>
-    <version>1.0.0</version>
+    <version>${rdf.api.version}</version>
 </dependency>
 ```
 
-### Gradle
+## 🤝 Contributing
 
-```gradle
-implementation("com.apicatalog:titanium-rdf-api:1.0.0")
-```
-
-## Contributing
-
-All PR's welcome!
-
+Contributions are welcome! Please submit a pull request.
 
 ### Building
 
@@ -119,4 +112,10 @@ Fork and clone the project repository.
 > cd titanium-rdf-api
 > mvn package
 ```
+
+## Resources
+
+* [W3C RDF 1.1 Concepts and Abstract Syntax](https://www.w3.org/TR/rdf11-concepts/)
+* [W3C RDF 1.2 Concepts and Abstract Data Model](https://www.w3.org/TR/rdf12-concepts/)
+
 

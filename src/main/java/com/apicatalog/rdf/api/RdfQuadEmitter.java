@@ -1,15 +1,14 @@
 package com.apicatalog.rdf.api;
 
 /**
- * Defines an event-based emitter for RDF 1.2 quads, supporting Triple Terms and
- * directional language-tagged strings.
+ * Defines an event-based emitter supporting Triple Terms.
  * 
  * <p>
  * Usage Examples:
  * </p>
  * 
  * <pre>{@code
- * Rdf12QuadEmitter emitter = ...;
+ * RdfQuadEmitter emitter = ...;
  *
  * // 1. Emitting a standard flat quad using convenience methods
  * emitter.quad(
@@ -23,10 +22,10 @@ package com.apicatalog.rdf.api;
  * emitter.beginQuad("http://example.org/graph");
  * emitter.subject("http://example.org/subject");
  * emitter.predicate("http://example.org/predicate");
- * emitter.literal("Ahoj", Rdf12QuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
+ * emitter.literal("Ahoj", RdfQuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
  * emitter.endQuad();
  *
- * // 3. Emitting an RDF 1.2 Triple Term in the subject position (e.g., << :s :p :o >> :p2 :o2)
+ * // 3. Emitting Triple Term in the subject position (e.g., << :s :p :o >> :p2 :o2)
  * emitter.beginQuad(null); // Default graph
  * 
  * emitter.beginSubject();
@@ -40,7 +39,7 @@ package com.apicatalog.rdf.api;
  * emitter.endQuad();
  * }</pre>
  */
-public interface Rdf12QuadEmitter extends Rdf11QuadConsumer {
+public interface RdfQuadEmitter extends RdfQuadConsumer {
 
     /**
      * Emits a complete quad statement using standard string values.

@@ -4,8 +4,12 @@
 
 | Version | Supported          |
 | ------- |:------------------:|
+| 2.x.x   | ✅ |
 | 1.x.x   | ✅ |
 
-## Reporting a Vulnerability
+If you discover a security vulnerability, please report it responsibly by contacting:
 
-Please report security vulnerabilities to [Filip Kolarik](mailto:filip26@gmail.com). Thank you!
+**Filip Kolarik**
+📧 [filip26@gmail.com](mailto:filip26@gmail.com)
+
+We will investigate promptly and work with you to address the issue. Thank you for helping keep the project secure!
