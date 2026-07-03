@@ -51,67 +51,6 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
      *
      * @param subject   the subject IRI or blank node identifier
      * @param predicate the predicate IRI
-     * @param object    the object IRI, blank node identifier
-     * @param graph     the graph name, or null for default graph
-     * @throws IllegalArgumentException if any argument is invalid
-     * @throws IllegalStateException    if the method is called in an incorrect
-     *                                  state
-     */
-    default void quad(String subject, String predicate, String object, String graph) {
-        beginQuad(graph);
-        subject(subject);
-        predicate(predicate);
-        object(object);
-        endQuad();
-    }
-
-    /**
-     * Emits a complete quad statement using standard string values.
-     *
-     * @param subject   the subject IRI or blank node identifier
-     * @param predicate the predicate IRI
-     * @param literal   the lexical form of the literal
-     * @param datatype  the datatype IRI
-     * @param graph     the graph name, or null for default graph
-     * @throws IllegalArgumentException if any argument is invalid
-     * @throws IllegalStateException    if the method is called in an incorrect
-     *                                  state
-     */
-    default void quad(String subject, String predicate, String literal, String datatype, String graph) {
-        beginQuad(graph);
-        subject(subject);
-        predicate(predicate);
-        literal(literal, datatype);
-        endQuad();
-    }
-
-    /**
-     * Emits a complete quad statement using standard string values.
-     *
-     * @param subject   the subject IRI or blank node identifier
-     * @param predicate the predicate IRI
-     * @param literal   the lexical form of the literal
-     * @param datatype  the datatype IRI
-     * @param language  the language tag
-     * @param graph     the graph name, or null for default graph
-     * @throws IllegalArgumentException if any argument is invalid
-     * @throws IllegalStateException    if the method is called in an incorrect
-     *                                  state
-     */
-    default void quad(String subject, String predicate, String literal, String datatype, String language,
-            String graph) {
-        beginQuad(graph);
-        subject(subject);
-        predicate(predicate);
-        literal(literal, datatype, language);
-        endQuad();
-    }
-
-    /**
-     * Emits a complete quad statement using standard string values.
-     *
-     * @param subject   the subject IRI or blank node identifier
-     * @param predicate the predicate IRI
      * @param literal   the lexical form of the literal
      * @param datatype  the datatype IRI
      * @param language  the language tag, or null
@@ -121,8 +60,15 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
      * @throws IllegalStateException    if the method is called in an incorrect
      *                                  state
      */
-    default void quad(String subject, String predicate, String literal, String datatype, String language,
-            String direction, String graph) {
+    @Override
+    default void quad(
+            String subject,
+            String predicate,
+            String literal,
+            String datatype,
+            String language,
+            String direction,
+            String graph) {
         beginQuad(graph);
         subject(subject);
         predicate(predicate);
