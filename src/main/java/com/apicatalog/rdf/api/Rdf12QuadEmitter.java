@@ -40,14 +40,7 @@ package com.apicatalog.rdf.api;
  * emitter.endQuad();
  * }</pre>
  */
-public interface Rdf12QuadEmitter {
-
-    /**
-     * The datatype IRI for RDF language-tagged strings.
-     */
-    String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
-    
-    String DATATYPE_DIR_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString";
+public interface Rdf12QuadEmitter extends Rdf11QuadConsumer {
 
     /**
      * Emits a complete quad statement using standard string values.
@@ -267,46 +260,4 @@ public interface Rdf12QuadEmitter {
             String datatype,
             String language,
             String direction);
-
-    /**
-     * Determines if the provided combination of {@code datatype}, {@code language},
-     * and {@code direction} qualifies the object as an RDF language-tagged string
-     * literal with no specified direction.
-     * 
-     * @param datatype  the datatype IRI
-     * @param language  the language tag
-     * @param direction the text direction
-     * @return {@code true} if the provided object is RDF language-tagged literal,
-     *         otherwise {@code false}.
-     */
-    public static boolean isLangString(String datatype, String language, String direction) {
-        return DATATYPE_LANG_STRING.equals(datatype) && language != null && direction == null;
-    }
-
-    /**
-     * Determines if the provided combination of {@code datatype}, {@code language},
-     * and {@code direction} qualifies the object as an RDF directional
-     * language-tagged string literal with a specified direction.
-     *
-     * @param datatype  the datatype IRI
-     * @param language  the language tag
-     * @param direction the text direction
-     * @return {@code true} if the provided object is RDF directional
-     *         language-tagged literal, otherwise {@code false}.
-     */
-    public static boolean isDirLangString(String datatype, String language, String direction) {
-        return DATATYPE_DIR_LANG_STRING.equals(datatype) && language != null && direction != null;
-    }
-
-    /**
-     * Checks whether the provided resource identifier represents a blank node. A
-     * blank node identifier must start with "<code>_:</code>".
-     *
-     * @param resource the resource identifier to check; may be {@code null}.
-     * @return {@code true} if the resource is a non-null blank node identifier;
-     *         otherwise {@code false}.
-     */
-    static boolean isBlank(String resource) {
-        return resource != null && resource.startsWith("_:");
-    }
 }
