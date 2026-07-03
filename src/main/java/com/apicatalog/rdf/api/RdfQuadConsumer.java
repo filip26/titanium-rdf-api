@@ -18,11 +18,11 @@ public interface RdfQuadConsumer {
     /**
      * The datatype IRI for RDF language-tagged strings.
      */
-    String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+    static final String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
 
-    String DATATYPE_DIR_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString";
+    static final String DATATYPE_DIR_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString";
 
-    String I18N_BASE = "https://www.w3.org/ns/i18n#";
+    static final String DATATYPE_I18N_BASE = "https://www.w3.org/ns/i18n#";
 
     /**
      * Consumes an RDF quad where the {@code object} may be an IRI, blank node,
@@ -141,7 +141,7 @@ public interface RdfQuadConsumer {
      *         literal, otherwise {@code false}.
      */
     static boolean isI18nString(String datatype, String language, String direction) {
-        return I18N_BASE.equals(datatype) && direction != null;
+        return DATATYPE_I18N_BASE.equals(datatype) && direction != null;
     }
 
     /**
