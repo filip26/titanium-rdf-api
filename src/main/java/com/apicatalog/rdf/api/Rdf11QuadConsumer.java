@@ -82,14 +82,16 @@ public interface Rdf11QuadConsumer {
     }
 
     /**
-     * Determines if the provided combination of {@code datatype}, and
-     * {@code language} qualifies the object as RDF literal.
+     * Determines if the provided combination of {@code datatype}, {@code language},
+     * and {@code direction} qualifies the object as RDF literal.
      *
-     * @param datatype the datatype IRI
+     * @param datatype  the datatype IRI
+     * @param language  the language tag
+     * @param direction the text direction
      * @return {@code true} indicating a literal, otherwise {@code false}.
      */
-    static boolean isLiteral(String datatype) {
-        return datatype != null;
+    static boolean isLiteral(String datatype, String language, String direction) {
+        return datatype != null || language != null || direction != null;
     }
 
     /**
@@ -103,7 +105,7 @@ public interface Rdf11QuadConsumer {
      * @return {@code true} if the provided object is RDF language-tagged literal,
      *         otherwise {@code false}.
      */
-    public static boolean isLangString(String datatype, String language, String direction) {
+    static boolean isLangString(String datatype, String language, String direction) {
         return DATATYPE_LANG_STRING.equals(datatype) && language != null && direction == null;
     }
 
@@ -118,7 +120,7 @@ public interface Rdf11QuadConsumer {
      * @return {@code true} if the provided object is RDF directional
      *         language-tagged literal, otherwise {@code false}.
      */
-    public static boolean isDirLangString(String datatype, String language, String direction) {
+    static boolean isDirLangString(String datatype, String language, String direction) {
         return DATATYPE_DIR_LANG_STRING.equals(datatype) && language != null && direction != null;
     }
 
@@ -133,7 +135,7 @@ public interface Rdf11QuadConsumer {
      * @return {@code true} if the provided object is an internationalized string
      *         literal, otherwise {@code false}.
      */
-    public static boolean isI18nString(String datatype, String language, String direction) {
+    static boolean isI18nString(String datatype, String language, String direction) {
         return I18N_BASE.equals(datatype) && direction != null;
     }
 
