@@ -6,6 +6,11 @@ package com.apicatalog.rdf.api;
  * This functional interface provides a mechanism to process or consume RDF
  * statements represented as quads, with support for datatypes, language tags,
  * and directional language-tagged strings.
+ * 
+ * @see <a href="https://www.w3.org/TR/rdf11-concepts/">W3C RDF 1.1 Concepts and
+ *      Abstract Syntax</a>
+ * @see <a href="https://www.w3.org/TR/rdf12-concepts/">W3C RDF 1.2 Concepts and
+ *      Abstract Data Model</a>
  */
 @FunctionalInterface
 public interface RdfQuadConsumer {

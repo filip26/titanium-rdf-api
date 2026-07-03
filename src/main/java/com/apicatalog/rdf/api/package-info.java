@@ -13,5 +13,9 @@
  * production of Triple Terms.</li>
  * </ul>
  * 
+ * @see <a href="https://www.w3.org/TR/rdf11-concepts/">W3C RDF 1.1 Concepts and
+ *      Abstract Syntax</a>
+ * @see <a href="https://www.w3.org/TR/rdf12-concepts/">W3C RDF 1.2 Concepts and
+ *      Abstract Data Model</a>
  */
 package com.apicatalog.rdf.api;
