@@ -111,7 +111,10 @@ public interface RdfQuadConsumer {
      *         otherwise {@code false}.
      */
     static boolean isLangString(String datatype, String language, String direction) {
-        return language != null;
+        return language != null
+                && direction == null
+                && (datatype == null
+                        || DATATYPE_LANG_STRING.equals(datatype));
     }
 
     /**
@@ -126,7 +129,8 @@ public interface RdfQuadConsumer {
      *         language-tagged literal, otherwise {@code false}.
      */
     static boolean isDirLangString(String datatype, String language, String direction) {
-        return direction != null;
+        return direction != null && (datatype == null
+                || DATATYPE_DIR_LANG_STRING.equals(datatype));
     }
 
     /**
