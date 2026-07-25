@@ -1,24 +1,35 @@
 package com.apicatalog.rdf.api;
 
 /**
- * RDF quad consumer interface designed for high-performance processing and
- * seamless integration with third-party libraries.
+ * Represents a consumer of RDF quads, extended with RDF 1.2 text direction.
  * <p>
- * This interface minimizes unnecessary object instantiation, improving
- * efficiency when handling RDF data at scale.
- * <p>
- * Use the provided static helper methods to analyze and validate consumer
- * parameters.
+ * This functional interface provides a mechanism to process or consume RDF
+ * statements represented as quads, with support for datatypes, language tags,
+ * and directional language-tagged strings.
+ * 
+ * @see <a href="https://www.w3.org/TR/rdf11-concepts/">W3C RDF 1.1 Concepts and
+ *      Abstract Syntax</a>
+ * @see <a href="https://www.w3.org/TR/rdf12-concepts/">W3C RDF 1.2 Concepts and
+ *      Abstract Data Model</a>
  */
 @FunctionalInterface
 public interface RdfQuadConsumer {
+
+    /**
+     * The datatype IRI for RDF language-tagged strings.
+     */
+    static final String DATATYPE_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+
+    static final String DATATYPE_DIR_LANG_STRING = "http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString";
+
+    static final String DATATYPE_I18N_BASE = "https://www.w3.org/ns/i18n#";
 
     /**
      * Consumes an RDF quad where the {@code object} may be an IRI, blank node,
      * typed literal, or language-tagged literal.
      * <p>
      * This method provides fine-grained control over RDF quad data, allowing
-     * precise handling of datatypes, language tags, and text direction.
+     * precise handling of datatypes and language tags.
      *
      * @param subject   the subject of the quad; must be an IRI or blank node
      *                  identifier prefixed with "<code>_:</code>". Must not be
@@ -35,36 +46,45 @@ public interface RdfQuadConsumer {
      *                  </ul>
      *                  Must not be {@code null}.
      *                  <p>
-     *                  Use {@link #isValidObject(String, String, String)},
-     *                  {@link #isLiteral(String, String, String)},
-     *                  {@link #isLangString(String, String, String)}, and
-     *                  {@link #isDirLangString(String, String, String)} to validate
+     *                  Use {@link #isLiteral(String, String, String)},
+     *                  {@link #isLangString(String, String, String)},
+     *                  {@link #isDirLangString(String, String, String)}, and
+     *                  {@link #isI18nString(String, String, String)} to validate
      *                  and classify the input.
      * @param datatype  the datatype IRI of the literal. Must be {@code null} if
      *                  {@code object} is not a literal. Must not be {@code null}
-     *                  when {@code language} or {@code direction} is provided.
-     * @param language  the language tag of the literal. May be {@code null}, but
-     *                  must not be {@code null} if {@code direction} is provided.
-     * @param direction the text direction of the literal. Optional; may be
-     *                  {@code null}.
+     *                  when {@code language} is provided.
+     * @param language  the language tag of the literal. May be {@code null}.
+     * @param direction the text direction, or null
      * @param graph     the graph name of the quad; must be an IRI or blank node
      *                  identifier prefixed with "<code>_:</code>". May be
      *                  {@code null} to indicate the default graph.
      *
-     * @return a reference to this consumer, enabling fluent chaining; never
-     *         {@code null}.
-     *
-     * @throws RdfConsumerException if an error occurs while processing the quad
-     *                              statement.
+     * @throws IllegalArgumentException if an error occurs while processing the quad
+     *                                  statement.
      */
-    RdfQuadConsumer quad(
+    void quad(
             String subject,
             String predicate,
             String object,
             String datatype,
             String language,
             String direction,
-            String graph) throws RdfConsumerException;
+            String graph);
+
+    /**
+     * Determines if the absence of {@code datatype}, {@code language}, and
+     * {@code direction} qualifies the entity as a general non-literal RDF object.
+     *
+     * @param datatype  the datatype IRI
+     * @param language  the language tag
+     * @param direction the text direction
+     * @return {@code true} if all parameters are {@code null}, indicating a
+     *         non-literal object, otherwise {@code false}.
+     */
+    static boolean isObject(String datatype, String language, String direction) {
+        return datatype == null && language == null && direction == null;
+    }
 
     /**
      * Determines if the provided combination of {@code datatype}, {@code language},
@@ -76,12 +96,12 @@ public interface RdfQuadConsumer {
      * @return {@code true} indicating a literal, otherwise {@code false}.
      */
     static boolean isLiteral(String datatype, String language, String direction) {
-        return datatype != null;
+        return datatype != null || language != null || direction != null;
     }
 
     /**
-     * Determines if the provided combination of {@code datatype}, {@code language},
-     * and {@code direction} qualifies the object as an RDF language-tagged string
+     * Determines if the provided combination of {@code datatype}, and
+     * {@code language} qualifies the object as an RDF language-tagged string
      * literal with no specified direction.
      * 
      * @param datatype  the datatype IRI
@@ -91,7 +111,10 @@ public interface RdfQuadConsumer {
      *         otherwise {@code false}.
      */
     static boolean isLangString(String datatype, String language, String direction) {
-        return datatype != null && language != null && direction == null;
+        return language != null
+                && direction == null
+                && (datatype == null
+                        || DATATYPE_LANG_STRING.equals(datatype));
     }
 
     /**
@@ -106,22 +129,23 @@ public interface RdfQuadConsumer {
      *         language-tagged literal, otherwise {@code false}.
      */
     static boolean isDirLangString(String datatype, String language, String direction) {
-        return datatype != null && language != null && direction != null;
+        return direction != null && (datatype == null
+                || DATATYPE_DIR_LANG_STRING.equals(datatype));
     }
 
     /**
-     * Validates whether the object is a valid RDF object based on the presence of
-     * {@code datatype}, {@code language}, and {@code direction}.
+     * Determines if the provided combination of {@code datatype}, {@code language},
+     * and {@code direction} qualifies the object as an internationalized string
+     * literal with a specified direction.
      *
      * @param datatype  the datatype IRI
      * @param language  the language tag
      * @param direction the text direction
-     * @return {@code true} if the object is valid according to RDF term rules.
+     * @return {@code true} if the provided object is an internationalized string
+     *         literal, otherwise {@code false}.
      */
-    static boolean isValidObject(String datatype, String language, String direction) {
-        return datatype != null
-                ? (language != null || direction == null)
-                : (language == null && direction == null);
+    static boolean isI18nString(String datatype, String language, String direction) {
+        return DATATYPE_I18N_BASE.equals(datatype) && direction != null;
     }
 
     /**

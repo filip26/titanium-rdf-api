@@ -5,38 +5,48 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apicatalog</groupId>
     <artifactId>titanium-rdf-api</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
+
     <url>https://github.com/filip26/titanium-rdf-api</url>
+
     <scm>
-        <connection>scm:git:git://github.com/filip26/titanium-rdf-api.git</connection>
+        <connection>
+            scm:git:https://github.com/filip26/titanium-rdf-api.git
+        </connection>
+
         <developerConnection>
-            scm:git:git://github.com/filip26/titanium-rdf-api.git</developerConnection>
-        <url>https://github.com/filip26/titanium-rdf-api/tree/main</url>
+            scm:git:ssh://git@github.com/filip26/titanium-rdf-api.git
+        </developerConnection>
+        <url>
+            https://github.com/filip26/titanium-rdf-api
+        </url>
     </scm>
+
     <properties>
-        <maven.compiler.target>8</maven.compiler.target>
-        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.release>8</maven.compiler.release>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <argLine>-Dfile.encoding=UTF-8</argLine>
-                
+
         <!--  test resources -->
-        <jakarta.json.version>2.0.1</jakarta.json.version>        
+        <jakarta.json.version>2.0.1</jakarta.json.version>
         <junit.version>5.14.4</junit.version>
     </properties>
 
     <name>Titanium RDF API</name>
 
     <description>
-        A collection of straightforward interfaces for processing RDF statements and facilitating seamless interoperability and data exchange across various libraries.    
+        A collection of universal RDF 1.1 and RDF 1.2 micro-interfaces enabling
+        fast, high-performance processing, seamless interoperability, and data
+        exchange across various libraries.
     </description>
 
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://apache.org/licenses/LICENSE-2.0</url>
+            <url>https://apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
@@ -58,34 +68,16 @@
 
     <inceptionYear>2025</inceptionYear>
 
-    <dependencies>
-        <!--  Tests -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.json</artifactId>
-            <version>${jakarta.json.version}</version>
-            <scope>test</scope>
-        </dependency>        
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.5.0</version>
             </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.15.0</version>
+            </plugin>            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -115,34 +107,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.15</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.6</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.5.6</version>
-            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -159,36 +123,26 @@
                         <version>3.2.8</version>
                         <executions>
                             <execution>
-                              <id>sign-artifacts</id>
-                              <phase>verify</phase>
-                              <goals>
-                                  <goal>sign</goal>
-                              </goals>
-                              <configuration>
-                                <signer>bc</signer>
-                              </configuration>                                
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.7.0</version>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.11.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
         </profile>
     </profiles>
 </project>

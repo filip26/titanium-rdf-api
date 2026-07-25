@@ -6,23 +6,78 @@ A collection of straightforward micro-interfaces for processing RDF statements a
 [![javadoc](https://javadoc.io/badge2/com.apicatalog/titanium-rdf-api/javadoc.svg)](https://javadoc.io/doc/com.apicatalog/titanium-rdf-api)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-## Example
+## Examples
 
-This example demonstrates how to utilize the `RdfQuadConsumer` interface with Titanium JSON-LD, RDF Canonicalization, and the N-Quads writer to transform JSON-LD into canonicalized RDF and represent it in the N-QUADS format.
+This section demonstrates how to directly utilize the micro-interfaces for both RDF 1.1 processing and advanced RDF 1.2 data emission.
 
-```javascript
-// Step 1: Create an RDF Canonicalizer
-var canon = RdfCanon.create(...);
+### RDF Flat Quads
 
-// Step 2: Convert JSON-LD to RDF and pass statements to the canonicalizer
-JsonLd.toRdf(...).provide(canon);
+This example shows how to implement and use the `RdfQuadConsumer` interface to process incoming RDF statements, utilizing the static helper methods to validate data types.
 
-// Step 3: Canonicalize the received RDF statements and output the canonical version in N-QUADS format
-var writer = new NQuadsWriter(...);
-canon.provide(writer);
+```java
+// 1. Implement a custom consumer
+var logger = (subject, predicate, object, datatype, language, graph) -> {
+    
+    // Use static helpers to identify language-tagged strings
+    if (RdfQuadConsumer.isLangString(datatype, language)) {
+        System.out.println("Language string detected: " + object + "@" + language);
+    } else if (RdfQuadConsumer.isBlank(subject)) {
+        System.out.println("Blank node subject detected: " + subject);
+    }
+    
+    // Additional processing logic here
+};
 
+// 2. Feed quads into the consumer
+logger.quad(
+    "http://example.org/subject",
+    "http://example.org/predicate",
+    "Ahoj",
+    RdfQuadConsumer.DATATYPE_DIR_LANG_STRING,
+    "cs",
+    "ltr",
+    null
+);
 ```
-## Supported By
+
+### RDF Triple Terms
+
+This example demonstrates how to use the `RdfQuadEmitter` interface to produce nested Triple Terms.
+
+```java
+// Initialize a writer or processor implementing RdfQuadEmitter
+RdfQuadEmitter emitter = ...;
+
+// 1. Emitting a standard flat quad using convenience methods
+emitter.quad(
+    "http://example.org/subject", 
+    "http://example.org/predicate", 
+    "http://example.org/object", 
+    "http://example.org/graph"
+);
+
+// 2. Streaming a quad with a directional language-tagged literal (Czech, Left-to-Right)
+emitter.beginQuad("http://example.org/graph");
+emitter.subject("http://example.org/subject");
+emitter.predicate("http://example.org/predicate");
+emitter.literal("Ahoj", RdfQuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
+emitter.endQuad();
+
+// 3. Emitting an RDF 1.2 Triple Term in the subject position (<< :s :p :o >> :p2 :o2)
+emitter.beginQuad(); // Default graph
+
+emitter.beginSubject();
+emitter.subject("http://example.org/s");
+emitter.predicate("http://example.org/p");
+emitter.object("http://example.org/o");
+emitter.endSubject();
+
+emitter.predicate("http://example.org/p2");
+emitter.object("http://example.org/o2");
+emitter.endQuad();
+```
+
+## 🎉 Supported By
 
 * [Apache Jena](https://jena.apache.org/)
 * [Jelly-JVM](https://w3id.org/jelly/jelly-jvm) – high-performance binary RDF serialization format
@@ -34,35 +89,27 @@ canon.provide(writer);
 Add an implementation that supports this API - open a PR!
 
 
-## Installation
+## 📦 Installation
 
-### Maven
 
 ```xml
 <dependency>
     <groupId>com.apicatalog</groupId>
     <artifactId>titanium-rdf-api</artifactId>
-    <version>1.0.0</version>
+    <version>${rdf.api.version}</version>
 </dependency>
 ```
 
-### Gradle
+## 🤝 Contributing
 
-```gradle
-implementation("com.apicatalog:titanium-rdf-api:1.0.0")
-```
+Contributions of all kinds are welcome - whether it’s code, documentation, testing, or community support! Please open PR or issue to get started.
 
-## Contributing
+## 📚 Resources
 
-All PR's welcome!
+* [W3C RDF 1.1 Concepts and Abstract Syntax](https://www.w3.org/TR/rdf11-concepts/)
+* [W3C RDF 1.2 Concepts and Abstract Data Model](https://www.w3.org/TR/rdf12-concepts/)
 
+## 💼 Commercial Support
 
-### Building
-
-Fork and clone the project repository.
-
-```bash
-> cd titanium-rdf-api
-> mvn package
-```
-
+Commercial support and consulting are available.
+For inquiries, please contact: <filip26@gmail.com>
