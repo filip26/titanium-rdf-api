@@ -2,7 +2,7 @@
 
 A collection of straightforward micro-interfaces for processing RDF statements and facilitating seamless interoperability and data exchange across various libraries.
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.apicatalog/titanium-rdf-api.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:com.apicatalog%20AND%20a:titanium-rdf-api)
+[![Maven Central](https://img.shields.io/maven-central/v/com.apicatalog/titanium-rdf-api.svg?label=Maven%20Central)](https://mvnrepository.com/artifact/com.apicatalog/titanium-rdf-api)
 [![javadoc](https://javadoc.io/badge2/com.apicatalog/titanium-rdf-api/javadoc.svg)](https://javadoc.io/doc/com.apicatalog/titanium-rdf-api)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
