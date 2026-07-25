@@ -112,4 +112,4 @@ Contributions of all kinds are welcome - whether it’s code, documentation, tes
 ## 💼 Commercial Support
 
 Commercial support and consulting are available.
-For inquiries, please contact: filip26@gmail.com
+For inquiries, please contact: <filip26@gmail.com>
