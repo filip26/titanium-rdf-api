@@ -46,7 +46,7 @@ public interface RdfQuadConsumer {
      *                  </ul>
      *                  Must not be {@code null}.
      *                  <p>
-     *                  Use {@link #isLiteral(String)},
+     *                  Use {@link #isLiteral(String, String, String)},
      *                  {@link #isLangString(String, String, String)},
      *                  {@link #isDirLangString(String, String, String)}, and
      *                  {@link #isI18nString(String, String, String)} to validate
