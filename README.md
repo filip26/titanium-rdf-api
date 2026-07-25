@@ -102,18 +102,14 @@ Add an implementation that supports this API - open a PR!
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please submit a pull request.
+Contributions of all kinds are welcome - whether it’s code, documentation, testing, or community support! Please open PR or issue to get started.
 
-### Building
-
-Fork and clone the project repository.
-
-```bash
-> cd titanium-rdf-api
-> mvn package
-```
-
-## Resources
+## 📚 Resources
 
 * [W3C RDF 1.1 Concepts and Abstract Syntax](https://www.w3.org/TR/rdf11-concepts/)
 * [W3C RDF 1.2 Concepts and Abstract Data Model](https://www.w3.org/TR/rdf12-concepts/)
+
+## 💼 Commercial Support
+
+Commercial support and consulting are available.
+For inquiries, please contact: filip26@gmail.com
