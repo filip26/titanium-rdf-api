@@ -7,13 +7,22 @@
     <artifactId>titanium-rdf-api</artifactId>
     <version>2.0.0</version>
     <packaging>jar</packaging>
+
     <url>https://github.com/filip26/titanium-rdf-api</url>
+
     <scm>
-        <connection>scm:git:git://github.com/filip26/titanium-rdf-api.git</connection>
+        <connection>
+            scm:git:https://github.com/filip26/titanium-rdf-api.git
+        </connection>
+
         <developerConnection>
-            scm:git:git://github.com/filip26/titanium-rdf-api.git</developerConnection>
-        <url>https://github.com/filip26/titanium-rdf-api/tree/main</url>
+            scm:git:ssh://git@github.com/filip26/titanium-rdf-api.git
+        </developerConnection>
+        <url>
+            https://github.com/filip26/titanium-rdf-api
+        </url>
     </scm>
+
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
 
@@ -37,7 +46,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://apache.org/licenses/LICENSE-2.0</url>
+            <url>https://apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
@@ -66,6 +75,10 @@
                 <version>3.5.0</version>
             </plugin>
             <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.15.0</version>
+            </plugin>            
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.4.0</version>
@@ -93,15 +106,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.6</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.5.6</version>
             </plugin>
         </plugins>
     </build>
