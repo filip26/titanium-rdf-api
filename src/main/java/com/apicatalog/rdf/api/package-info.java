@@ -7,10 +7,10 @@
  * of the RDF specification:
  * </p>
  * <ul>
- * <li>{@link com.apicatalog.rdf.api.RdfQuadConsumer} - Tailored for consuming
- * RDF stream data without Triple Terms.</li>
- * <li>{@link com.apicatalog.rdf.api.RdfQuadEmitter} - Tailored for event-based
- * production of Triple Terms.</li>
+ * <li>{@link com.apicatalog.rdf.api.RdfQuadConsumer} - Designed for consuming
+ * RDF 1.1 and 1.2 stream data without Triple Terms.</li>
+ * <li>{@link com.apicatalog.rdf.api.RdfQuadEmitter} - Designed for event-based
+ * production of RDF 1.2 Triple Terms.</li>
  * </ul>
  * 
  * @see <a href="https://www.w3.org/TR/rdf11-concepts/">W3C RDF 1.1 Concepts and
