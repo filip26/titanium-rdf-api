@@ -63,17 +63,15 @@ emitter.predicate("http://example.org/predicate");
 emitter.literal("Ahoj", RdfQuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
 emitter.endQuad();
 
-// 3. Emitting an RDF 1.2 Triple Term in the subject position (<< :s :p :o >> :p2 :o2)
+// 3. Emitting an RDF 1.2 Triple Term in the subject position (:s2 :p2 << :s :p :o >>)
 emitter.beginQuad(); // Default graph
-
-emitter.beginSubject();
+emitter.subject("http://example.org/s2");
+emitter.predicate("http://example.org/p2");
+emitter.beginObject();
 emitter.subject("http://example.org/s");
 emitter.predicate("http://example.org/p");
 emitter.object("http://example.org/o");
 emitter.endSubject();
-
-emitter.predicate("http://example.org/p2");
-emitter.object("http://example.org/o2");
 emitter.endQuad();
 ```
 

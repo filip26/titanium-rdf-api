@@ -25,20 +25,18 @@ package com.apicatalog.rdf.api;
  * emitter.literal("Ahoj", RdfQuadEmitter.DATATYPE_DIR_LANG_STRING, "cs", "ltr");
  * emitter.endQuad();
  *
- * // 3. Emitting Triple Term in the subject position (e.g., << :s :p :o >> :p2 :o2)
+ * // 3. Emitting Triple Term in the subject position (e.g., :s2 :p2 << :s :p :o >>)
  * emitter.beginQuad(null); // Default graph
- * 
- * emitter.beginSubject();
- * emitter.subject("http://example.org/s");
+ * emitter.subject("http://example.org/s2");
+ * emitter.predicate("http://example.org/p2")
+ * emitter.beginObject();
+ * emitter.subject("http://example.org/s2");
  * emitter.predicate("http://example.org/p");
  * emitter.object("http://example.org/o");
- * emitter.endSubject();
- * 
- * emitter.predicate("http://example.org/p2");
- * emitter.object("http://example.org/o2");
+ * emitter.endObject();
  * emitter.endQuad();
  * }</pre>
- * 
+ *  
  * @see <a href="https://www.w3.org/TR/rdf11-concepts/">W3C RDF 1.1 Concepts and
  *      Abstract Syntax</a>
  * @see <a href="https://www.w3.org/TR/rdf12-concepts/">W3C RDF 1.2 Concepts and
@@ -95,18 +93,26 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
     void endQuad();
 
     /**
+     * @deprecated by the latest RDF 1.2 spec.
      * Starts a nested triple term in the subject position.
      *
      * @throws IllegalStateException if called in an invalid nesting context
      */
-    void beginSubject();
+    @Deprecated
+    default void beginSubject() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
+     * @deprecated by the latest RDF 1.2 spec.
      * Closes the nested triple term in the subject position.
      *
      * @throws IllegalStateException if no triple term context is open
      */
-    void endSubject();
+    @Deprecated
+    default void endSubject() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Starts a nested triple term in the object position.
