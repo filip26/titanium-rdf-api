@@ -36,7 +36,7 @@ package com.apicatalog.rdf.api;
  * emitter.endObject();
  * emitter.endQuad();
  * }</pre>
- *  
+ * 
  * @see <a href="https://www.w3.org/TR/rdf11-concepts/">W3C RDF 1.1 Concepts and
  *      Abstract Syntax</a>
  * @see <a href="https://www.w3.org/TR/rdf12-concepts/">W3C RDF 1.2 Concepts and
@@ -56,10 +56,10 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
         beginQuad(graph);
         subject(subject);
         predicate(predicate);
-        if (RdfQuadConsumer.isLiteral(datatype, language, direction)) {
-            literal(object, datatype, language);
-        } else {
+        if (RdfQuadConsumer.isObject(datatype, language, direction)) {
             object(object);
+        } else {
+            literal(object, datatype, language, direction);
         }
         endQuad();
     }
@@ -93,8 +93,8 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
     void endQuad();
 
     /**
-     * @deprecated by the latest RDF 1.2 spec.
-     * Starts a nested triple term in the subject position.
+     * @deprecated by the latest RDF 1.2 spec. Starts a nested triple term in the
+     *             subject position.
      *
      * @throws IllegalStateException if called in an invalid nesting context
      */
@@ -104,8 +104,8 @@ public interface RdfQuadEmitter extends RdfQuadConsumer {
     }
 
     /**
-     * @deprecated by the latest RDF 1.2 spec.
-     * Closes the nested triple term in the subject position.
+     * @deprecated by the latest RDF 1.2 spec. Closes the nested triple term in the
+     *             subject position.
      *
      * @throws IllegalStateException if no triple term context is open
      */
