@@ -145,7 +145,7 @@ public interface RdfQuadConsumer {
      *         literal, otherwise {@code false}.
      */
     static boolean isI18nString(String datatype, String language, String direction) {
-        return DATATYPE_I18N_BASE.equals(datatype) && direction != null;
+        return DATATYPE_I18N_BASE.equals(datatype) && language != null && direction != null;
     }
 
     /**

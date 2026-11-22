@@ -16,14 +16,21 @@ This example shows how to implement and use the `RdfQuadConsumer` interface to p
 
 ```java
 // 1. Implement a custom consumer
-var logger = (subject, predicate, object, datatype, language, graph) -> {
-    
-    // Use static helpers to identify language-tagged strings
-    if (RdfQuadConsumer.isLangString(datatype, language)) {
-        System.out.println("Language string detected: " + object + "@" + language);
-    } else if (RdfQuadConsumer.isBlank(subject)) {
+var logger = (subject, predicate, object, datatype, language, direction, graph) -> {
+
+    if (RdfQuadConsumer.isBlank(subject)) {
         System.out.println("Blank node subject detected: " + subject);
     }
+    
+    // ...
+
+    // Use static helpers to identify language-tagged strings    
+    if (RdfQuadConsumer.isLangString(datatype, language, direction)) {
+        System.out.println("Language string detected: " + object + "@" + language);
+        
+    } else if (RdfQuadConsumer.isDirLangString(datatype, language, direction)) {
+        System.out.println("Language string detected: " + object + "@" + language + "--" + direction);
+    } 
     
     // Additional processing logic here
 };

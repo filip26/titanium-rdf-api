@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apicatalog</groupId>
     <artifactId>titanium-rdf-api</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/filip26/titanium-rdf-api</url>
@@ -22,18 +22,6 @@
             https://github.com/filip26/titanium-rdf-api
         </url>
     </scm>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <argLine>-Dfile.encoding=UTF-8</argLine>
-
-        <!--  test resources -->
-        <jakarta.json.version>2.0.1</jakarta.json.version>
-        <junit.version>5.14.4</junit.version>
-    </properties>
 
     <name>Titanium RDF API</name>
 
@@ -67,6 +55,14 @@
     </developers>
 
     <inceptionYear>2025</inceptionYear>
+
+    <properties>
+        <maven.compiler.release>8</maven.compiler.release>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+    </properties>
 
     <build>
         <plugins>
