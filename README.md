@@ -39,11 +39,11 @@ var logger = (subject, predicate, object, datatype, language, direction, graph) 
 logger.quad(
     "http://example.org/subject",
     "http://example.org/predicate",
-    "Ahoj",
-    RdfQuadConsumer.DATATYPE_DIR_LANG_STRING,
-    "cs",
-    "ltr",
-    null
+    "Ahoj", // literal value
+    RdfQuadConsumer.DATATYPE_DIR_LANG_STRING, // rdf:dirLangString
+    "cs",   // language tag
+    "ltr",  // direction
+    null    // default graph
 );
 ```
 
@@ -95,7 +95,6 @@ Add an implementation that supports this API - open a PR!
 
 
 ## 📦 Installation
-
 
 ```xml
 <dependency>
