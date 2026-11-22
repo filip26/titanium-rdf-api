@@ -190,7 +190,7 @@ public interface RdfQuadConsumer {
      *
      * <p>
      * Such a literal has a datatype identified by {@link #DATATYPE_I18N_BASE},
-     * together with a non-null language tag and text direction.
+     * together with a non-null text direction.
      *
      * @param datatype  the datatype IRI
      * @param language  the language tag, or {@code null}
@@ -199,7 +199,7 @@ public interface RdfQuadConsumer {
      *         literal; {@code false} otherwise
      */
     static boolean isI18nString(String datatype, String language, String direction) {
-        return language != null && direction != null && DATATYPE_I18N_BASE.equals(datatype);
+        return direction != null && DATATYPE_I18N_BASE.equals(datatype);
     }
 
     /**
